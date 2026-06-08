@@ -264,31 +264,31 @@ body {
     margin-top: 80px;
 }
 
-/* ----- SERVICES ----- */
-
-.services {
+.bgBlack {
     position: relative;
     margin-left: -80px;
     margin-right: -80px;
     margin-top: 100px;
+    padding: 60px 80px;
+    background-color: #0e0e0e;
+    border-radius: 100px;
     background-image: url("../assets/bgServices.png");
     background-size: 100% auto;
+    height: 2885px;
     background-position: top center;
     background-repeat: no-repeat;
     color: #fff;
 }
 
-.services::after {
-    content: "";
-    display: block;
-    padding-bottom: 148.7%; /* 2855 / 1920 — keeps section height in sync with bg image */
+/* ----- SERVICES ----- */
+
+.services {
+    position: relative;
+    z-index: 1;
 }
 
 .services-container {
-    position: absolute;
-    inset: 0;
-    padding: 60px 80px 0;
-    z-index: 1;
+    position: relative;
 }
 
 .services-badge {
@@ -401,4 +401,139 @@ body {
     border-radius: 40px;
 
     margin-top: 60px;
+}
+
+/* ----- PROJECTS ----- */
+
+.projects {
+    position: relative;
+    z-index: 1;
+    margin-top: 100px;
+}
+
+.projects-container {
+    position: relative;
+}
+
+.projects-badge {
+    display: inline-flex;
+    padding: 14px 36px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 100px;
+    border: 1px solid #fff;
+
+    color: #fff;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.projects-headline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.projects-headline h2 {
+    flex-shrink: 0;
+    width: 732px;
+    margin-top: 40px;
+    padding: 0;
+    color: #FFF;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.projects-headline-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    max-width: 640px;
+}
+
+.projects-headline-right p {
+    width: 640px;
+    color: #FFF;
+    text-align: right;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.projects-btn {
+    display: inline-block;
+    margin-top: 40px;
+    line-height: 0;
+    text-decoration: none;
+}
+
+.projects-btn img {
+    display: block;
+    width: auto;
+    height: auto;
+}
+
+.project-line {
+    width: 1760px;
+    height: 1px;
+    background: #FFF;
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project img {
+    width: 690px;
+    height: 389px;
+    border-radius: 40px;
+}
+
+.project h4 {
+    color: #FFF;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.project-desc p {
+    width: 442px;
+
+    color: #FFF;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+
+    margin-bottom: 30px;
+}
+
+.project-desc a {
+    color: var(--accent, #FDA246);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
 }
