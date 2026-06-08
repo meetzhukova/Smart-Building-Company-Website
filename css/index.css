@@ -9,6 +9,7 @@ body {
     width: calc(100% - 160px);
     margin-inline: 80px;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 300;
@@ -79,6 +80,17 @@ body {
     color: #FFF;
     font-size: 18px;
     font-weight: 400;
+    text-decoration: none;
+}
+
+.header ul li a,
+.baseline ul li a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: inherit;
     text-decoration: none;
 }
 
@@ -682,6 +694,11 @@ body {
     gap: 40px;
     list-style: none;
     margin-top: 30px;
+}
+
+.baseline ul li a {
+    color: #FFF;
+    text-decoration: none;
 }
 
 .baseline-left li {
