@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../css/portal.css" />
+  <link rel="stylesheet" href="../css/equipment.css" />
   <title>Equipment – TFB Portal</title>
 </head>
 <body>
   <main class="portal">
     <aside class="sidebar">
-      <a href="../index.html" class="logo">TFB</a>
+      <a href="index.html" class="logo">TFB</a>
       <nav>
         <a href="portal.html">Dashboard</a>
         <a href="equipment.html" class="active">Equipment</a>
@@ -24,12 +24,9 @@
         <div>
           <p class="badge">Employee Portal</p>
           <h1>Equipment</h1>
-          <p class="subtitle">Search and filter all registered IoT devices.</p>
+          <p class="subtitle">Search, filter, edit and delete IoT devices.</p>
         </div>
-        <div class="topbar-right">
-          <div class="user-info" id="userInfo">Signed in as —</div>
-          <a href="../index.html" class="back-btn">Back to website</a>
-        </div>
+        <a href="index.html" class="back-btn">Back to website</a>
       </div>
 
       <div class="panel">
@@ -55,6 +52,7 @@
               <th>Status</th>
               <th>Location</th>
               <th>Last Checked</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody id="deviceTable"></tbody>
@@ -63,38 +61,98 @@
     </section>
   </main>
 
-  <script>
-    const currentUser = sessionStorage.getItem('user');
-    if (!currentUser) {
-      window.location.href = 'login.html';
-    } else {
-      const user = JSON.parse(currentUser);
-      document.getElementById('userInfo').textContent = `Signed in as ${user.name}`;
-    }
-  </script>
+  <!-- Edit Modal -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal">
+      <h2>Edit Device</h2>
+      <div class="modal-field">
+        <label>Device Name</label>
+        <input type="text" id="editName" />
+      </div>
+      <div class="modal-field">
+        <label>Type</label>
+        <input type="text" id="editType" />
+      </div>
+      <div class="modal-field">
+        <label>Status</label>
+        <select id="editStatus">
+          <option value="Active">Active</option>
+          <option value="Testing">Testing</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Offline">Offline</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Location</label>
+        <input type="text" id="editLocation" />
+      </div>
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="save-btn" onclick="saveEdit()">Save Changes</button>
+      </div>
+    </div>
+  </div>
 
   <script type="module">
     import { db } from "../javascript/firebase.js";
-    import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { collection, onSnapshot, deleteDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const devicesCollection = collection(db, "devices");
     const tableBody = document.getElementById("deviceTable");
     const searchInput = document.getElementById("searchInput");
     const filterStatus = document.getElementById("filterStatus");
     let devices = [];
+    let editingId = null;
+
+    window.openEdit = function(id) {
+      const device = devices.find(d => d.id === id);
+      if (!device) return;
+      editingId = id;
+      document.getElementById("editName").value = device.name;
+      document.getElementById("editType").value = device.type;
+      document.getElementById("editStatus").value = device.status;
+      document.getElementById("editLocation").value = device.location;
+      document.getElementById("editModal").classList.add("open");
+    };
+
+    window.closeModal = function() {
+      document.getElementById("editModal").classList.remove("open");
+      editingId = null;
+    };
+
+    window.saveEdit = async function() {
+      if (!editingId) return;
+      await updateDoc(doc(db, "devices", editingId), {
+        name: document.getElementById("editName").value,
+        type: document.getElementById("editType").value,
+        status: document.getElementById("editStatus").value,
+        location: document.getElementById("editLocation").value,
+        lastChecked: new Date().toLocaleDateString("en-GB")
+      });
+      closeModal();
+    };
+
+    window.deleteDevice = async function(id) {
+      if (!confirm("Delete this device?")) return;
+      await deleteDoc(doc(db, "devices", id));
+    };
 
     function renderDevices(list) {
       tableBody.innerHTML = "";
       list.forEach(device => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${device.name}</td>
-          <td>${device.type}</td>
-          <td><span class="status">${device.status}</span></td>
-          <td>${device.location}</td>
-          <td>${device.lastChecked}</td>
+        tableBody.innerHTML += `
+          <tr>
+            <td>${device.name}</td>
+            <td>${device.type}</td>
+            <td><span class="status">${device.status}</span></td>
+            <td>${device.location}</td>
+            <td>${device.lastChecked}</td>
+            <td>
+              <button class="action-btn edit-btn" onclick="openEdit('${device.id}')">Edit</button>
+              <button class="action-btn delete-btn" onclick="deleteDevice('${device.id}')">Delete</button>
+            </td>
+          </tr>
         `;
-        tableBody.appendChild(row);
       });
     }
 
@@ -112,6 +170,11 @@
 
     searchInput.addEventListener("input", applyFilters);
     filterStatus.addEventListener("change", applyFilters);
+
+    // Close modal clicking outside
+    document.getElementById("editModal").addEventListener("click", function(e) {
+      if (e.target === this) closeModal();
+    });
 
     onSnapshot(devicesCollection, snapshot => {
       devices = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));

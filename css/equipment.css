@@ -1,0 +1,103 @@
+@import url("../css/portal.css");
+
+.action-btn {
+      padding: 7px 18px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .edit-btn {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      margin-right: 8px;
+    }
+    .edit-btn:hover { background: rgba(255,255,255,0.2); }
+    .delete-btn {
+      background: rgba(248,113,113,0.15);
+      color: #f87171;
+    }
+    .delete-btn:hover { background: rgba(248,113,113,0.3); }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 30px;
+      padding: 50px;
+      width: 500px;
+    }
+    .modal h2 {
+      font-size: 30px;
+      font-weight: 300;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+    .modal-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .modal-field label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .modal-field input,
+    .modal-field select {
+      width: 100%;
+      padding: 16px 22px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: transparent;
+      color: #fff;
+      font-size: 15px;
+      font-family: inherit;
+    }
+    .modal-field input:focus,
+    .modal-field select:focus {
+      outline: none;
+      border-color: #FDA246;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .save-btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: 100px;
+      background: #fff;
+      color: #000;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .save-btn:hover { background: #FDA246; }
+    .cancel-btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: 100px;
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 16px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .cancel-btn:hover { background: rgba(255,255,255,0.05); }
