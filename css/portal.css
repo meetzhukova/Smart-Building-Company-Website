@@ -61,6 +61,19 @@ body {
   margin-bottom: 50px;
 }
 
+.topbar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.user-info {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 15px;
+  text-align: right;
+}
+
 .badge {
   display: inline-block;
   border: 1px solid #fff;

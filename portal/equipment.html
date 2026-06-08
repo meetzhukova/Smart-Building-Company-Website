@@ -13,6 +13,8 @@
       <nav>
         <a href="portal.html">Dashboard</a>
         <a href="equipment.html" class="active">Equipment</a>
+        <a href="status.html">Status</a>
+        <a href="register.html">Register Device</a>
         <a href="database.html">Database</a>
       </nav>
     </aside>
@@ -24,7 +26,10 @@
           <h1>Equipment</h1>
           <p class="subtitle">Search and filter all registered IoT devices.</p>
         </div>
-        <a href="../index.html" class="back-btn">Back to website</a>
+        <div class="topbar-right">
+          <div class="user-info" id="userInfo">Signed in as —</div>
+          <a href="../index.html" class="back-btn">Back to website</a>
+        </div>
       </div>
 
       <div class="panel">
@@ -57,6 +62,16 @@
       </div>
     </section>
   </main>
+
+  <script>
+    const currentUser = sessionStorage.getItem('user');
+    if (!currentUser) {
+      window.location.href = 'login.html';
+    } else {
+      const user = JSON.parse(currentUser);
+      document.getElementById('userInfo').textContent = `Signed in as ${user.name}`;
+    }
+  </script>
 
   <script type="module">
     import { db } from "../javascript/firebase.js";

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/login.css" />
+  <title>Login – TFB Portal</title>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-left">
+      <a href="../index.html" class="logo">TFB</a>
+      <h1>Employee<br>Portal</h1>
+      <p>Sign in to manage IoT devices<br>on the construction site.</p>
+
+      <p style="font-size:15px; color:rgba(255,255,255,0.35); margin-bottom:16px; text-transform:uppercase; letter-spacing:1px;">Quick fill demo accounts</p>
+      <div class="demo-accounts">
+        <div class="demo-account" onclick="fillDemo('erik@techforward.no','admin123')">
+          <span>Admin</span>
+          <p>erik@techforward.no</p>
+        </div>
+        <div class="demo-account" onclick="fillDemo('sofia@techforward.no','tech123')">
+          <span>Technician</span>
+          <p>sofia@techforward.no</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="login-right">
+      <h2>Sign In</h2>
+
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="emailInput" placeholder="your@email.com" />
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="passwordInput" placeholder="••••••••" />
+      </div>
+
+      <p class="error" id="errorMsg">Incorrect email or password.</p>
+
+      <button class="login-btn" onclick="login()">Sign In</button>
+
+      <div class="role-badge" id="roleBadge"></div>
+    </div>
+  </div>
+
+  <script>
+    const users = [
+      { email: "erik@techforward.no", password: "admin123", name: "Erik", role: "Admin" },
+      { email: "sofia@techforward.no", password: "tech123", name: "Sofia", role: "Technician" }
+    ];
+
+    function fillDemo(email, password) {
+      document.getElementById("emailInput").value = email;
+      document.getElementById("passwordInput").value = password;
+      document.getElementById("errorMsg").style.display = "none";
+    }
+
+    function login() {
+      const email = document.getElementById("emailInput").value.trim();
+      const password = document.getElementById("passwordInput").value;
+      const errorMsg = document.getElementById("errorMsg");
+      const roleBadge = document.getElementById("roleBadge");
+
+      const user = users.find(u => u.email === email && u.password === password);
+
+      if (!user) {
+        errorMsg.style.display = "block";
+        roleBadge.style.display = "none";
+        return;
+      }
+
+      errorMsg.style.display = "none";
+
+      // Save session
+      sessionStorage.setItem("user", JSON.stringify(user));
+
+      // Show role briefly then redirect
+      roleBadge.textContent = `Signed in as ${user.name} · ${user.role}`;
+      roleBadge.style.display = "block";
+
+      setTimeout(() => {
+        window.location.href = "portal.html";
+      }, 800);
+    }
+
+    // Allow Enter key
+    document.addEventListener("keydown", e => {
+      if (e.key === "Enter") login();
+    });
+
+    // If already logged in, go straight to portal
+    if (sessionStorage.getItem("user")) {
+      window.location.href = "portal.html";
+    }
+  </script>
+</body>
+</html>

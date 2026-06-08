@@ -1,0 +1,168 @@
+@import url("../css/portal.css");
+
+body {
+  min-height: 100vh;
+  background: #0b0b0b;
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-wrap {
+  display: flex;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+  max-width: 1100px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 40px;
+  min-height: 80vh;
+}
+
+.login-left {
+  flex: 1;
+}
+
+.login-left .logo {
+  color: #FDA246;
+  font-size: 40px;
+  display: block;
+  margin-bottom: 60px;
+  text-decoration: none;
+}
+
+.login-left h1 {
+  font-size: 80px;
+  font-weight: 300;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.login-left p {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 60px;
+}
+
+.demo-accounts {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.demo-account {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 18px 24px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.demo-account:hover {
+  border-color: #FDA246;
+  background: rgba(253, 162, 70, 0.12);
+}
+
+.demo-account span {
+  display: block;
+  color: #FDA246;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.demo-account p {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 15px;
+  margin: 0;
+}
+
+.login-right {
+  width: 440px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 40px;
+  padding: 50px;
+}
+
+.login-right h2 {
+  font-size: 34px;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.field label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.field input {
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: #FDA246;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 15px;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 20px;
+  border-radius: 100px;
+  background: #fff;
+  color: #000;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: inherit;
+}
+
+.login-btn:hover {
+  background: #FDA246;
+}
+
+.role-badge {
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: rgba(253, 162, 70, 0.15);
+  color: #FDA246;
+  font-size: 14px;
+}

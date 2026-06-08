@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/register.css" />
+  <title>Register Device – TFB Portal</title>
+</head>
+<body>
+  <main class="portal">
+    <aside class="sidebar">
+      <a href="../index.html" class="logo">TFB</a>
+      <nav>
+        <a href="portal.html">Dashboard</a>
+        <a href="equipment.html">Equipment</a>
+        <a href="status.html">Status</a>
+        <a href="register.html" class="active">Register Device</a>
+        <a href="database.html">Database</a>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <div class="topbar">
+        <div>
+          <p class="badge">Employee Portal</p>
+          <h1>Register Device</h1>
+          <p class="subtitle">Add a new IoT device to the system.</p>
+        </div>
+        <div class="topbar-right">
+          <div class="user-info" id="userInfo">Signed in as —</div>
+          <a href="../index.html" class="back-btn">Back to website</a>
+        </div>
+      </div>
+
+      <div class="panel" style="max-width:900px;">
+        <div class="panel-head">
+          <h2>Device Information</h2>
+        </div>
+
+        <form class="register-form" id="registerForm">
+          <div class="field">
+            <label>Device Name</label>
+            <input type="text" id="deviceName" placeholder="e.g. Temp Sensor A" required />
+          </div>
+
+          <div class="field">
+            <label>Device Type</label>
+            <input type="text" id="deviceType" placeholder="e.g. IoT Sensor" required />
+          </div>
+
+          <div class="field">
+            <label>Status</label>
+            <select id="deviceStatus">
+              <option value="Active">Active</option>
+              <option value="Testing">Testing</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Offline">Offline</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Location</label>
+            <input type="text" id="deviceLocation" placeholder="e.g. Floor 2, Room 204" required />
+          </div>
+
+          <div class="field full-width">
+            <label>Notes (optional)</label>
+            <textarea id="deviceNotes" placeholder="Any additional information about this device..."></textarea>
+          </div>
+
+          <div class="submit-row">
+            <button type="submit" class="submit-btn">Register Device</button>
+            <p class="success-msg" id="successMsg">✓ Device registered successfully!</p>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const currentUser = sessionStorage.getItem('user');
+    if (!currentUser) {
+      window.location.href = 'login.html';
+    } else {
+      const user = JSON.parse(currentUser);
+      document.getElementById('userInfo').textContent = `Signed in as ${user.name}`;
+    }
+  </script>
+
+  <script type="module">
+    import { db } from "../javascript/firebase.js";
+    import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    document.getElementById("registerForm").addEventListener("submit", async e => {
+      e.preventDefault();
+
+      const btn = document.querySelector(".submit-btn");
+      btn.textContent = "Saving...";
+      btn.disabled = true;
+
+      await addDoc(collection(db, "devices"), {
+        name: document.getElementById("deviceName").value,
+        type: document.getElementById("deviceType").value,
+        status: document.getElementById("deviceStatus").value,
+        location: document.getElementById("deviceLocation").value,
+        notes: document.getElementById("deviceNotes").value,
+        lastChecked: new Date().toLocaleDateString("en-GB"),
+        createdAt: serverTimestamp()
+      });
+
+      document.getElementById("registerForm").reset();
+      btn.textContent = "Register Device";
+      btn.disabled = false;
+
+      const msg = document.getElementById("successMsg");
+      msg.style.display = "block";
+      setTimeout(() => msg.style.display = "none", 3000);
+    });
+  </script>
+</body>
+</html>
