@@ -51,6 +51,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 330px;
 }
 
 .header nav {
@@ -83,7 +84,7 @@ body {
     text-decoration: none;
 }
 
-.header a {
+.nav-portal {
     display: inline-flex;
     width: 190px;
     height: 47px;
@@ -100,4 +101,55 @@ body {
     font-weight: 400;
     line-height: normal;
     text-decoration: none;
+    position: relative;
+}
+
+.header-container p {
+    color: #FFF;
+    font-family: "Helvetica Neue";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 100%; /* 30px */
+
+    margin-bottom: 40px;
+}
+
+.header-container h1 {
+    color: #FFF;
+    font-family: "Helvetica Neue";
+    font-size: 100px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 100%; /* 100px */
+    text-transform: uppercase;
+
+    margin-bottom: 50px;
+}
+
+.header-btn {
+    display: flex;
+    width: 292px;
+    height: 63px;
+    padding: 8px 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-radius: 100px;
+    background: #FFF;
+
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.header-btn img {
+    width: 28px;
+    height: 28px;
+    transform: rotate(45deg);
 }
