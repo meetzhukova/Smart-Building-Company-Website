@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/portal.css" />
+  <title>Database – TFB Portal</title>
+</head>
+<body>
+  <main class="portal">
+    <aside class="sidebar">
+      <a href="../index.html" class="logo">TFB</a>
+      <nav>
+        <a href="portal.html">Dashboard</a>
+        <a href="equipment.html">Equipment</a>
+        <a href="database.html" class="active">Database</a>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <div class="topbar">
+        <div>
+          <p class="badge">Employee Portal</p>
+          <h1>Database</h1>
+          <p class="subtitle">All collections stored in Firebase Firestore.</p>
+        </div>
+        <a href="../index.html" class="back-btn">Back to website</a>
+      </div>
+
+      <!-- Devices Table -->
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Devices</h2>
+          <p style="color:rgba(255,255,255,0.5); font-size:16px;" id="deviceCount">0 records</p>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Last Checked</th>
+            </tr>
+          </thead>
+          <tbody id="devicesTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { db } from "../javascript/firebase.js";
+    import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // Devices
+    onSnapshot(collection(db, "devices"), snapshot => {
+      const devices = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      document.getElementById("deviceCount").textContent = `${devices.length} records`;
+      const tbody = document.getElementById("devicesTable");
+      tbody.innerHTML = "";
+      devices.forEach(d => {
+        tbody.innerHTML += `
+          <tr>
+            <td style="color:rgba(255,255,255,0.4); font-size:13px;">${d.id}</td>
+            <td>${d.name}</td>
+            <td>${d.type}</td>
+            <td><span class="status">${d.status}</span></td>
+            <td>${d.location}</td>
+            <td>${d.lastChecked}</td>
+          </tr>
+        `;
+      });
+    });
+  </script>
+</body>
+</html>

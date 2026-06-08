@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/portal.css" />
+  <title>Dashboard – TFB Portal</title>
+</head>
+<body>
+  <main class="portal">
+    <aside class="sidebar">
+      <a href="../index.html" class="logo">TFB</a>
+      <nav>
+        <a href="portal.html" class="active">Dashboard</a>
+        <a href="equipment.html">Equipment</a>
+        <a href="database.html">Database</a>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <div class="topbar">
+        <div>
+          <p class="badge">Employee Portal</p>
+          <h1>Dashboard</h1>
+          <p class="subtitle">Overview of all IoT devices on the construction site.</p>
+        </div>
+        <a href="../index.html" class="back-btn">Back to website</a>
+      </div>
+
+      <div class="cards">
+        <div class="card"><p>Total Devices</p><h2 id="totalDevices">0</h2></div>
+        <div class="card"><p>Active</p><h2 id="activeDevices">0</h2></div>
+        <div class="card"><p>Testing</p><h2 id="testingDevices">0</h2></div>
+        <div class="card"><p>Maintenance</p><h2 id="maintenanceDevices">0</h2></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Recent Devices</h2>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Device Name</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Last Checked</th>
+            </tr>
+          </thead>
+          <tbody id="deviceTable"></tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <h2>Add New Device</h2>
+        <form id="deviceForm" class="form">
+          <input type="text" id="deviceName" placeholder="Device name" required />
+          <input type="text" id="deviceType" placeholder="Device type" required />
+          <select id="deviceStatus">
+            <option value="Active">Active</option>
+            <option value="Testing">Testing</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Offline">Offline</option>
+          </select>
+          <input type="text" id="deviceLocation" placeholder="Location" required />
+          <button type="submit">Add Device</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { db } from "../javascript/firebase.js";
+    import { collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const devicesCollection = collection(db, "devices");
+    const tableBody = document.getElementById("deviceTable");
+    const form = document.getElementById("deviceForm");
+    let devices = [];
+
+    function renderDevices(list) {
+      tableBody.innerHTML = "";
+      list.forEach(device => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${device.name}</td>
+          <td>${device.type}</td>
+          <td><span class="status">${device.status}</span></td>
+          <td>${device.location}</td>
+          <td>${device.lastChecked}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+      document.getElementById("totalDevices").textContent = devices.length;
+      document.getElementById("activeDevices").textContent = devices.filter(d => d.status === "Active").length;
+      document.getElementById("testingDevices").textContent = devices.filter(d => d.status === "Testing").length;
+      document.getElementById("maintenanceDevices").textContent = devices.filter(d => d.status === "Maintenance").length;
+    }
+
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      await addDoc(devicesCollection, {
+        name: document.getElementById("deviceName").value,
+        type: document.getElementById("deviceType").value,
+        status: document.getElementById("deviceStatus").value,
+        location: document.getElementById("deviceLocation").value,
+        lastChecked: new Date().toLocaleDateString("en-GB"),
+        createdAt: serverTimestamp()
+      });
+      form.reset();
+    });
+
+    onSnapshot(devicesCollection, snapshot => {
+      devices = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      renderDevices(devices);
+    });
+  </script>
+</body>
+</html>

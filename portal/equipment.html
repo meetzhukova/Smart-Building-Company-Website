@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/portal.css" />
+  <title>Equipment – TFB Portal</title>
+</head>
+<body>
+  <main class="portal">
+    <aside class="sidebar">
+      <a href="../index.html" class="logo">TFB</a>
+      <nav>
+        <a href="portal.html">Dashboard</a>
+        <a href="equipment.html" class="active">Equipment</a>
+        <a href="database.html">Database</a>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <div class="topbar">
+        <div>
+          <p class="badge">Employee Portal</p>
+          <h1>Equipment</h1>
+          <p class="subtitle">Search and filter all registered IoT devices.</p>
+        </div>
+        <a href="../index.html" class="back-btn">Back to website</a>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>All Devices</h2>
+          <div style="display:flex; gap:12px;">
+            <input type="text" id="searchInput" placeholder="Search device..." />
+            <select id="filterStatus">
+              <option value="">All statuses</option>
+              <option value="Active">Active</option>
+              <option value="Testing">Testing</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Offline">Offline</option>
+            </select>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Device Name</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Last Checked</th>
+            </tr>
+          </thead>
+          <tbody id="deviceTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { db } from "../javascript/firebase.js";
+    import { collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const devicesCollection = collection(db, "devices");
+    const tableBody = document.getElementById("deviceTable");
+    const searchInput = document.getElementById("searchInput");
+    const filterStatus = document.getElementById("filterStatus");
+    let devices = [];
+
+    function renderDevices(list) {
+      tableBody.innerHTML = "";
+      list.forEach(device => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${device.name}</td>
+          <td>${device.type}</td>
+          <td><span class="status">${device.status}</span></td>
+          <td>${device.location}</td>
+          <td>${device.lastChecked}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    function applyFilters() {
+      const search = searchInput.value.toLowerCase();
+      const status = filterStatus.value;
+      const filtered = devices.filter(d =>
+        (d.name.toLowerCase().includes(search) ||
+         d.type.toLowerCase().includes(search) ||
+         d.location.toLowerCase().includes(search)) &&
+        (status === "" || d.status === status)
+      );
+      renderDevices(filtered);
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    filterStatus.addEventListener("change", applyFilters);
+
+    onSnapshot(devicesCollection, snapshot => {
+      devices = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      applyFilters();
+    });
+  </script>
+</body>
+</html>
