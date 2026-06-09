@@ -212,7 +212,7 @@ Open `http://localhost:8000` for the public site, or go directly to `http://loca
 Developed as a diploma project in **VG2 IT Development**
 **Final grade: 6** — the highest mark in the Norwegian grading system (1 = fail, 6 = excellent)
 
-Open to new projects and collaborations — feel free to reach out!
+Open to new projects and collaborations — feel free to reach out! <br>
 **How to reach me?** <br>
 Instagram: @meetzhukova <br>
 Telegram: @meetzhukova <br>
