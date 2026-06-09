@@ -743,7 +743,7 @@ body {
     text-align: right;
 }
 
-.baseline-right p {
+.baseline-right a {
     color: #FFF;
     font-size: 30px;
     font-style: normal;
@@ -751,6 +751,11 @@ body {
     line-height: normal;
     text-transform: uppercase;
     text-align: right;
+    text-decoration-line: none;
 
     margin-top: 20px;
+}
+
+.baseline-right a:hover {
+    text-decoration-line: underline;
 }

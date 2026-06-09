@@ -56,12 +56,16 @@ body {
 }
 
 .demo-account {
+  width: 100%;
+  text-align: left;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 18px 24px;
   cursor: pointer;
   transition: border-color 0.2s, background 0.2s;
   background: rgba(255, 255, 255, 0.03);
+  color: inherit;
+  font: inherit;
 }
 
 .demo-account:hover {

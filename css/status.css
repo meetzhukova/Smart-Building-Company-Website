@@ -1,34 +1,31 @@
-@import url("../css/portal.css");
-
-body {
-  background: #0b0b0b;
-}
+@import url("portal.css");
 
 .status-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  gap: 16px;
 }
 
 .device-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 30px;
-  padding: 30px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  transition: border-color 0.2s;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s;
 }
 
 .device-card:hover {
-  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
-.device-card.active   { border-left: 3px solid #4ade80; }
-.device-card.testing  { border-left: 3px solid #FDA246; }
-.device-card.maintenance { border-left: 3px solid #60a5fa; }
-.device-card.offline  { border-left: 3px solid #f87171; }
+.device-card.active { border-left: 3px solid #059669; }
+.device-card.testing { border-left: 3px solid #d97706; }
+.device-card.maintenance { border-left: 3px solid #2563eb; }
+.device-card.offline { border-left: 3px solid #dc2626; }
 
 .device-card-top {
   display: flex;
@@ -37,8 +34,31 @@ body {
 }
 
 .device-name {
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 17px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.device-type {
+  font-size: 13px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.device-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.device-meta p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.device-meta span {
+  color: #374151;
 }
 
 .status-dot {
@@ -49,49 +69,28 @@ body {
   flex-shrink: 0;
 }
 
-.dot-active      { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
-.dot-testing     { background: #FDA246; box-shadow: 0 0 8px #FDA246; }
-.dot-maintenance { background: #60a5fa; box-shadow: 0 0 8px #60a5fa; }
-.dot-offline     { background: #f87171; box-shadow: 0 0 8px #f87171; }
-
-.device-type {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.device-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.device-meta p {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.device-meta span {
-  color: #fff;
-}
+.dot-active { background: #059669; }
+.dot-testing { background: #d97706; }
+.dot-maintenance { background: #2563eb; }
+.dot-offline { background: #dc2626; }
 
 .status-pill {
   display: inline-block;
-  padding: 6px 16px;
-  border-radius: 100px;
+  padding: 4px 12px;
+  border-radius: 999px;
   font-size: 13px;
+  font-weight: 500;
   margin-top: 4px;
 }
 
-.pill-active      { background: rgba(74, 222, 128, 0.15); color: #4ade80; }
-.pill-testing     { background: rgba(253, 162, 70, 0.15);  color: #FDA246; }
-.pill-maintenance { background: rgba(96, 165, 250, 0.15);  color: #60a5fa; }
-.pill-offline     { background: rgba(248, 113, 113, 0.15); color: #f87171; }
+.pill-active { background: #d1fae5; color: #059669; }
+.pill-testing { background: #fef3c7; color: #d97706; }
+.pill-maintenance { background: #dbeafe; color: #2563eb; }
+.pill-offline { background: #fee2e2; color: #dc2626; }
 
 .empty-state {
   text-align: center;
-  padding: 80px;
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 20px;
+  padding: 60px;
+  color: #9ca3af;
+  font-size: 16px;
 }

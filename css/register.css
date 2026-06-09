@@ -1,87 +1,86 @@
-@import url("../css/portal.css");
-
-body {
-  background: #0b0b0b;
-}
+@import url("portal.css");
 
 .register-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  max-width: 900px;
+  gap: 20px;
 }
 
 .register-form .field {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .register-form label {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.65);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
 }
 
 .register-form input,
 .register-form select,
 .register-form textarea {
-  padding: 18px 24px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.04);
-  color: #fff;
-  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #111827;
+  font-size: 15px;
   font-family: inherit;
-}
-
-.register-form input::placeholder,
-.register-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.5);
 }
 
 .register-form input:focus,
 .register-form select:focus,
 .register-form textarea:focus {
   outline: none;
-  border-color: #FDA246;
-}
-
-.register-form .full-width {
-  grid-column: 1 / -1;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
 .register-form textarea {
   resize: vertical;
-  min-height: 120px;
-  border-radius: 20px;
+  min-height: 100px;
+}
+
+.register-form .field--full {
+  grid-column: 1 / -1;
 }
 
 .submit-row {
   grid-column: 1 / -1;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .submit-btn {
-  padding: 18px 50px;
-  border-radius: 100px;
-  background: #fff;
-  color: #000;
+  padding: 12px 28px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
   border: none;
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
   font-family: inherit;
 }
 
 .submit-btn:hover {
-  background: #FDA246;
+  background: #1d4ed8;
 }
 
 .success-msg {
-  color: #4ade80;
-  font-size: 16px;
+  color: #059669;
+  font-size: 15px;
   display: none;
+}
+
+.registered-by-name {
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #f3f4f6;
+  color: #111827;
+  font-size: 15px;
+  font-weight: 500;
 }

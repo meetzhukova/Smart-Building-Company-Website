@@ -41,7 +41,7 @@
 
       <p class="error" id="errorMsg">Incorrect email or password.</p>
 
-      <button class="login-btn" onclick="login()">Sign In</button>
+      <button type="button" class="login-btn" onclick="login()">Sign In</button>
 
       <div class="role-badge" id="roleBadge"></div>
     </div>
@@ -50,7 +50,7 @@
   <script>
     const users = [
       { email: "erik@techforward.no", password: "admin123", name: "Erik", role: "Admin" },
-      { email: "sofia@techforward.no", password: "tech123", name: "Sofia", role: "Technician" }
+      { email: "sofia@techforward.no", password: "tech123", name: "Sofia", role: "Technician" },
     ];
 
     function fillDemo(email, password) {
@@ -65,7 +65,9 @@
       const errorMsg = document.getElementById("errorMsg");
       const roleBadge = document.getElementById("roleBadge");
 
-      const user = users.find(u => u.email === email && u.password === password);
+      const user = users.find(function (entry) {
+        return entry.email === email && entry.password === password;
+      });
 
       if (!user) {
         errorMsg.style.display = "block";
@@ -74,25 +76,22 @@
       }
 
       errorMsg.style.display = "none";
-
-      // Save session
       sessionStorage.setItem("user", JSON.stringify(user));
 
-      // Show role briefly then redirect
-      roleBadge.textContent = `Signed in as ${user.name} · ${user.role}`;
+      roleBadge.textContent = "Signed in as " + user.name + " · " + user.role;
       roleBadge.style.display = "block";
 
-      setTimeout(() => {
+      setTimeout(function () {
         window.location.href = "portal.html";
       }, 800);
     }
 
-    // Allow Enter key
-    document.addEventListener("keydown", e => {
-      if (e.key === "Enter") login();
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        login();
+      }
     });
 
-    // If already logged in, go straight to portal
     if (sessionStorage.getItem("user")) {
       window.location.href = "portal.html";
     }

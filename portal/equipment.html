@@ -4,46 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../css/equipment.css" />
-  <title>Equipment – TFB Portal</title>
+  <title>Devices – TFB Portal</title>
 </head>
 <body>
   <main class="portal">
     <aside class="sidebar">
-      <a href="index.html" class="logo">TFB</a>
-      <nav>
-        <a href="portal.html">Dashboard</a>
-        <a href="equipment.html" class="active">Equipment</a>
-        <a href="status.html">Status</a>
-        <a href="register.html">Register Device</a>
-        <a href="database.html">Database</a>
+      <a href="../index.html" class="sidebar-brand">
+        <img src="../assets/logoIcon.svg" alt="" class="sidebar-brand__icon">
+        <span class="sidebar-brand__text">Tech Forward<br>Builders</span>
+      </a>
+      <nav class="sidebar-nav">
+        <a href="portal.html" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z"/></svg>
+          <span>Dashboard</span>
+          <span class="sidebar-link__chevron">›</span>
+        </a>
+        <a href="equipment.html" class="sidebar-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/></svg>
+          <span>Devices</span>
+          <span class="sidebar-link__chevron">›</span>
+        </a>
+        <a href="status.html" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5M10 19V9M16 19v-6M22 19V3"/></svg>
+          <span>Status</span>
+          <span class="sidebar-link__chevron">›</span>
+        </a>
+        <a href="register.html" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+          <span>Register</span>
+          <span class="sidebar-link__chevron">›</span>
+        </a>
+        <a href="database.html" class="sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/></svg>
+          <span>Database</span>
+          <span class="sidebar-link__chevron">›</span>
+        </a>
       </nav>
     </aside>
 
     <section class="content">
-      <div class="topbar">
-        <div>
-          <p class="badge">Employee Portal</p>
-          <h1>Equipment</h1>
-          <p class="subtitle">Search, filter, edit and delete IoT devices.</p>
+      <header class="content-header">
+        <h1 class="page-title">All Devices</h1>
+        <div class="header-actions">
+          <a href="../index.html" class="header-link">Back to website</a>
+          <button type="button" class="logout-btn" onclick="logout()">Log out</button>
+          <span class="user-pill" id="userInfo">Signed in as —</span>
+          <div class="user-avatar" id="userAvatar">—</div>
         </div>
-        <a href="index.html" class="back-btn">Back to website</a>
+      </header>
+
+      <div class="toolbar">
+        <div class="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="text" id="searchInput" placeholder="Search devices..." />
+        </div>
+        <select id="filterStatus">
+          <option value="">All statuses</option>
+          <option value="Active">Online</option>
+          <option value="Testing">Testing</option>
+          <option value="Maintenance">Maintenance</option>
+          <option value="Offline">Offline</option>
+        </select>
       </div>
 
-      <div class="panel">
-        <div class="panel-head">
-          <h2>All Devices</h2>
-          <div style="display:flex; gap:12px;">
-            <input type="text" id="searchInput" placeholder="Search device..." />
-            <select id="filterStatus">
-              <option value="">All statuses</option>
-              <option value="Active">Active</option>
-              <option value="Testing">Testing</option>
-              <option value="Maintenance">Maintenance</option>
-              <option value="Offline">Offline</option>
-            </select>
-          </div>
-        </div>
-
+      <div class="table-card">
         <table>
           <thead>
             <tr>
@@ -51,7 +75,9 @@
               <th>Type</th>
               <th>Status</th>
               <th>Location</th>
-              <th>Last Checked</th>
+              <th>Last Updated</th>
+              <th>Registered By</th>
+              <th>Notes</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -61,7 +87,6 @@
     </section>
   </main>
 
-  <!-- Edit Modal -->
   <div class="modal-overlay" id="editModal">
     <div class="modal">
       <h2>Edit Device</h2>
@@ -86,6 +111,14 @@
         <label>Location</label>
         <input type="text" id="editLocation" />
       </div>
+      <div class="modal-field">
+        <label>Registered by</label>
+        <p class="modal-readonly" id="editRegisteredBy">—</p>
+      </div>
+      <div class="modal-field">
+        <label>Notes</label>
+        <textarea id="editNotes" rows="4" placeholder="Optional notes..."></textarea>
+      </div>
       <div class="modal-actions">
         <button class="cancel-btn" onclick="closeModal()">Cancel</button>
         <button class="save-btn" onclick="saveEdit()">Save Changes</button>
@@ -93,93 +126,17 @@
     </div>
   </div>
 
-  <script type="module">
-    import { db } from "../javascript/firebase.js";
-    import { collection, onSnapshot, deleteDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  <div class="modal-overlay" id="noteModal">
+    <div class="modal modal--note">
+      <h2>Device Note</h2>
+      <p class="note-content" id="noteContent"></p>
+      <div class="modal-actions">
+        <button class="save-btn" type="button" onclick="closeNoteModal()">Close</button>
+      </div>
+    </div>
+  </div>
 
-    const devicesCollection = collection(db, "devices");
-    const tableBody = document.getElementById("deviceTable");
-    const searchInput = document.getElementById("searchInput");
-    const filterStatus = document.getElementById("filterStatus");
-    let devices = [];
-    let editingId = null;
-
-    window.openEdit = function(id) {
-      const device = devices.find(d => d.id === id);
-      if (!device) return;
-      editingId = id;
-      document.getElementById("editName").value = device.name;
-      document.getElementById("editType").value = device.type;
-      document.getElementById("editStatus").value = device.status;
-      document.getElementById("editLocation").value = device.location;
-      document.getElementById("editModal").classList.add("open");
-    };
-
-    window.closeModal = function() {
-      document.getElementById("editModal").classList.remove("open");
-      editingId = null;
-    };
-
-    window.saveEdit = async function() {
-      if (!editingId) return;
-      await updateDoc(doc(db, "devices", editingId), {
-        name: document.getElementById("editName").value,
-        type: document.getElementById("editType").value,
-        status: document.getElementById("editStatus").value,
-        location: document.getElementById("editLocation").value,
-        lastChecked: new Date().toLocaleDateString("en-GB")
-      });
-      closeModal();
-    };
-
-    window.deleteDevice = async function(id) {
-      if (!confirm("Delete this device?")) return;
-      await deleteDoc(doc(db, "devices", id));
-    };
-
-    function renderDevices(list) {
-      tableBody.innerHTML = "";
-      list.forEach(device => {
-        tableBody.innerHTML += `
-          <tr>
-            <td>${device.name}</td>
-            <td>${device.type}</td>
-            <td><span class="status">${device.status}</span></td>
-            <td>${device.location}</td>
-            <td>${device.lastChecked}</td>
-            <td>
-              <button class="action-btn edit-btn" onclick="openEdit('${device.id}')">Edit</button>
-              <button class="action-btn delete-btn" onclick="deleteDevice('${device.id}')">Delete</button>
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    function applyFilters() {
-      const search = searchInput.value.toLowerCase();
-      const status = filterStatus.value;
-      const filtered = devices.filter(d =>
-        (d.name.toLowerCase().includes(search) ||
-         d.type.toLowerCase().includes(search) ||
-         d.location.toLowerCase().includes(search)) &&
-        (status === "" || d.status === status)
-      );
-      renderDevices(filtered);
-    }
-
-    searchInput.addEventListener("input", applyFilters);
-    filterStatus.addEventListener("change", applyFilters);
-
-    // Close modal clicking outside
-    document.getElementById("editModal").addEventListener("click", function(e) {
-      if (e.target === this) closeModal();
-    });
-
-    onSnapshot(devicesCollection, snapshot => {
-      devices = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      applyFilters();
-    });
-  </script>
+  <script src="js/auth.js"></script>
+  <script type="module" src="../javascript/equipment.js"></script>
 </body>
 </html>
