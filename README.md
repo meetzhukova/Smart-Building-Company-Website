@@ -207,8 +207,16 @@ Open `http://localhost:8000` for the public site, or go directly to `http://loca
 
 ## Author
 
+**Polina Zhukova**
+
 Developed as a diploma project in **VG2 IT Development**.  
 **Final grade: 6** — the highest mark in the Norwegian grading system (1 = fail, 6 = excellent).
+
+Open to new projects and collaborations — feel free to reach out.
+**How to reach me?**
+Instagram: @meetzhukova
+Telegram: @meetzhukova
+Behance: https://www.behance.net/meetzhukova
 
 ---
 
