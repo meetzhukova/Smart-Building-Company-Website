@@ -18,22 +18,48 @@ The solution is split into two connected parts: a **public website** that presen
 
 ### Challenges
 
-| Challenge | Description |
-|-----------|-------------|
-| **No digital presence** | The company needed a modern website to communicate its services, showcase completed projects, and attract new clients in the smart construction market. |
-| **Scattered device data** | IoT sensors and controllers across construction sites were tracked manually — no single place to see what was installed, where, or in what condition. |
-| **No real-time visibility** | Technicians had no quick way to check whether devices were online, under testing, or needed maintenance. |
-| **No accountability** | When a device was registered on site, there was no record of who added it or when. |
+Running IoT systems on active construction sites creates problems across three areas:
+
+#### Infrastructure & Networking
+- **Secure and stable connectivity** — devices must stay connected in a changing, outdoor environment
+- **Support for PCs, sensors, and IoT devices** — many different types of hardware need to work together
+- **Reliable network on a construction site** — Wi-Fi and infrastructure are often temporary and unstable
+
+#### Systems & Software
+- **Equipment registration** — no standard way to add new devices to the system when they arrive on site
+- **Device monitoring** — no overview of which devices are online, offline, or under maintenance
+- **Data management** — device information scattered across spreadsheets, messages, and paper notes
+- **Internal software solutions** — the company lacked a dedicated tool built for its own workflow
+
+#### Support & Training
+- **Different levels of technical knowledge** — admins and technicians use the system with varying experience
+- **User guidance** — employees need a simple, clear interface without a steep learning curve
+- **Documentation and support routines** — no consistent process for tracking who registered what and when
+
+---
 
 ### Solutions
 
-| Solution | How it works |
-|----------|--------------|
-| **Public website** | A single-page marketing site with clear sections — hero, features, services, projects, and contact — giving the company a professional online identity. |
-| **Employee portal** | A password-protected internal system where staff log in, view all devices, register new ones, and monitor status from any browser. |
-| **Cloud database** | Device data is stored in **Firebase Firestore**, so updates sync in real time across all portal pages without reloading. |
-| **Search & filters** | The Devices page lets employees search by name, type, location, or notes, and filter by status (Online, Testing, Maintenance, Offline). |
-| **Registration tracking** | Each new device automatically records the name of the employee who registered it. |
+The project addresses these challenges through three connected parts:
+
+#### Public Website
+- Presents the company and its services to potential clients
+- Showcases completed smart building projects
+- Provides contact and support information
+- Improves communication with clients and strengthens the company's digital presence
+
+#### Employee Portal
+- **Secure login system** — role-based access for admins and technicians
+- **Equipment registration and management** — add, edit, and delete devices from any browser
+- **Real-time monitoring of IoT devices** — live status overview with search and filters
+- **Centralized access to project information** — one dashboard for all devices across the site
+- **Registration tracking** — each device records who registered it and when
+
+#### Cloud Database (Firebase Firestore)
+- Stores all equipment information in a single collection (`devices`)
+- Synchronizes data in real time — changes appear instantly across all portal pages
+- Supports scalability and remote access from any location
+- Provides a foundation for future development (reports, locations, user roles)
 
 ---
 
